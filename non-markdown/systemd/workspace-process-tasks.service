@@ -1,0 +1,8 @@
+# If your vault is not at ~/workspace, adjust the %h/workspace path(s) below.
+[Unit]
+Description=Process Claude-delegated vault tasks (headless, per-task claude instances)
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/workspace
+ExecStart=/usr/bin/bash %h/workspace/non-markdown/run-claude-tasks.sh

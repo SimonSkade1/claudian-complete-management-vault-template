@@ -1,0 +1,46 @@
+# Machine-local Obsidian state (churns constantly, machine-specific)
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+
+# Logs of the scheduled daily-review job (noise, machine-local)
+non-markdown/logs/
+
+# Python bytecode caches
+__pycache__/
+
+# Machine-local Claude Code settings (created on first local permission approval)
+.claude/settings.local.json
+
+# Claude Code session transcripts (if you relocate them into the vault)
+.claude/projects/
+
+# Claudian plugin state — sessions churn every message; keep any helper scripts
+.claudian/*
+!.claudian/*.py
+
+# Plugin data files that hold secrets or churn per use — add your plugins'
+# data.json here (e.g. a TTS plugin storing an API key)
+.obsidian/plugins/realclaudian/data.json
+
+# Obsidian view-state churn, vault trash, OS cruft
+.obsidian/graph.json
+.trash/
+.DS_Store
+
+# Sync-tool internals and artifacts (Syncthing patterns shown; harmless if unused)
+.stfolder/
+.stversions/
+.stignore
+*.sync-conflict-*
+.syncthing.*.tmp
+~syncthing~*.tmp
+
+# external-projects subfolders that have their own git repo (avoids gitlink
+# noise; their history lives in their own git). Managed block — regenerate with:
+#   non-markdown/update-external-ignores.sh
+# >>> external-projects (auto-generated)
+# <<< external-projects
+
+# Optional pattern: a Claude free-play folder kept out of git history and
+# daily-review diffs (see optional-extensions/spare-usage-burner/)
+#/projects-claude/do whatever you want (as long as it doesn't harm my goals)/

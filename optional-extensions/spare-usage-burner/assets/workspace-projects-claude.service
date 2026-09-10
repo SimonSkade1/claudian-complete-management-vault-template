@@ -1,0 +1,8 @@
+# If your vault is not at ~/workspace, adjust the %h/workspace path(s) below.
+[Unit]
+Description=Headless vna-controller session over projects-claude (spare weekly usage)
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/workspace
+ExecStart=/usr/bin/bash %h/workspace/non-markdown/run-projects-claude.sh

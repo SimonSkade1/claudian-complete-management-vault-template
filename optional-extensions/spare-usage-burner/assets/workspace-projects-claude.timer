@@ -1,0 +1,12 @@
+[Unit]
+Description=Spare-usage projects-claude slots (Tue 12/18, Wed 0/6 Europe/Berlin; weekly reset Wed 08:00)
+
+[Timer]
+OnCalendar=Tue *-*-* 12:00:00 Europe/Berlin
+OnCalendar=Tue *-*-* 18:00:00 Europe/Berlin
+OnCalendar=Wed *-*-* 00:00:00 Europe/Berlin
+OnCalendar=Wed *-*-* 06:00:00 Europe/Berlin
+Persistent=true
+
+[Install]
+WantedBy=timers.target

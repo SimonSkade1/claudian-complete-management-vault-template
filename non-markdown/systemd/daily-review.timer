@@ -1,0 +1,9 @@
+[Unit]
+Description=Daily vault review at 23:00 (Persistent=true catches up after suspend/boot)
+
+[Timer]
+OnCalendar=*-*-* 23:00:00
+Persistent=true
+
+[Install]
+WantedBy=timers.target

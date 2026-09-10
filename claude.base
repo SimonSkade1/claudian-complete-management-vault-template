@@ -1,0 +1,66 @@
+filters:
+  and:
+    - file.inFolder("tasks-and-notes")
+    - file.ext == "md"
+    - or:
+        - next_action_by.lower() == "opus"
+        - next_action_by.lower() == "fable"
+        - next_action_by.lower() == "sonnet"
+        - next_action_by.lower() == "haiku"
+        - next_action_by.lower() == "claude"
+formulas:
+  effective_priority: if(priority.isEmpty(), 5, priority)
+properties:
+  status:
+    displayName: Status
+  priority:
+    displayName: Priority
+  next_action_by:
+    displayName: Model
+  project:
+    displayName: Project
+  not_before:
+    displayName: Not Before
+views:
+  - type: table
+    name: Do
+    filters:
+      and:
+        - '!status.containsAny("done", "archived", "note", "review", "failed", "on-hold", "cancelled")'
+        - if(not_before, date(not_before) <= now(), true)
+    order:
+      - file.name
+      - priority
+      - next_action_by
+      - status
+      - project
+      - not_before
+    sort:
+      - property: formula.effective_priority
+        direction: DESC
+      - property: file.ctime
+        direction: ASC
+    columnSize:
+      file.name: 384
+      note.priority: 81
+      note.project: 177
+  - type: table
+    name: Later
+    filters:
+      and:
+        - '!status.containsAny("done", "archived", "note", "review", "failed", "on-hold", "cancelled")'
+        - if(not_before, date(not_before) > now(), false)
+    order:
+      - file.name
+      - priority
+      - next_action_by
+      - status
+      - project
+      - not_before
+    sort:
+      - property: not_before
+        direction: ASC
+    columnSize:
+      file.name: 384
+      note.priority: 81
+      note.project: 177

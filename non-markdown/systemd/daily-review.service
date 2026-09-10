@@ -1,0 +1,11 @@
+# If your vault is not at ~/workspace, adjust the %h/workspace path(s) below.
+[Unit]
+Description=Daily vault review (headless Claude summarizes the git diff)
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/workspace/non-markdown/run-daily-review.sh
+TimeoutStartSec=2h
+Nice=10

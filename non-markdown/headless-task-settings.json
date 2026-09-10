@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "permissions": {
+    "deny": [
+      "Bash(sudo:*)",
+      "Bash(shutdown:*)",
+      "Bash(reboot:*)",
+      "Bash(poweroff:*)",
+      "Bash(mkfs:*)",
+      "Bash(dd:*)",
+      "Bash(crontab:*)",
+      "Read(//home/*/.claude/.credentials.json)",
+      "Read(~/.claude/.credentials.json)"
+    ]
+  }
+}

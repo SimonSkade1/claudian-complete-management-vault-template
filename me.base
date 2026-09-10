@@ -1,0 +1,323 @@
+filters:
+  and:
+    - file.inFolder("tasks-and-notes")
+    - file.ext == "md"
+    - or:
+        - owner == "me"
+        - owner == "Me"
+        - next_action_by == "me"
+        - next_action_by == "Me"
+        - if(subscribers, subscribers.contains("me") || subscribers.contains("Me"), false)
+        - owner.isEmpty()
+formulas:
+  days_until_active: if(not_before, (date(not_before) - today()).days, "")
+  effective_priority: if(priority.isEmpty(), 5, priority)
+  sort_priority: if(status == "inbox", 0, if(priority.isEmpty(), 5, priority))
+  section_name: if(status == "in-progress", "0 In Progress", if(status == "inbox", "1 Inbox", if(status == "review" || status == "on-hold", "2 Review", if(status == "note" || status == "knowledge", if(if(not_before, date(not_before) > now(), false), "8 Later Notes", "7 Notes"), if(status == "note-archived", "10 Archived Notes", if(status == "done" || status == "archived" || status == "failed" || status == "cancelled", "9 Done", if(status == "post-idea", "4 Post-Ideas", if(if(not_before, date(not_before) > now(), false), "6 Later", if(next_action_by == "me" || next_action_by == "Me" || (next_action_by.isEmpty() && (owner == "me" || owner == "Me" || owner.isEmpty())), "3 Do", "5 Wait & Subscribed")))))))))
+properties:
+  status:
+    displayName: Status
+  priority:
+    displayName: Priority
+  next_action_by:
+    displayName: Next Action By
+  owner:
+    displayName: Owner
+  project:
+    displayName: Project
+  not_before:
+    displayName: Not Before
+  subscribers:
+    displayName: Subscribers
+  formula.days_until_active:
+    displayName: Days Until Active
+  formula.section_name:
+    displayName: Section
+views:
+  - type: table
+    name: All Open
+    filters:
+      and:
+        - formula.section_name != "9 Done"
+        - formula.section_name != "10 Archived Notes"
+    groupBy:
+      property: formula.section_name
+      direction: ASC
+    order:
+      - file.name
+      - formula.section_name
+      - status
+      - priority
+      - next_action_by
+      - project
+      - not_before
+      - owner
+      - subscribers
+    sort:
+      - property: formula.sort_priority
+        direction: DESC
+      - property: file.ctime
+        direction: DESC
+    columnSize:
+      file.name: 787
+      note.priority: 81
+      note.project: 177
+      note.subscribers: 145
+  - type: table
+    name: In Progress
+    filters:
+      and:
+        - formula.section_name == "0 In Progress"
+    order:
+      - file.name
+      - status
+      - priority
+      - next_action_by
+      - project
+      - not_before
+      - owner
+      - subscribers
+    sort:
+      - property: formula.effective_priority
+        direction: DESC
+      - property: file.ctime
+        direction: DESC
+    columnSize:
+      file.name: 384
+      note.priority: 81
+      note.project: 177
+      note.subscribers: 145
+  - type: table
+    name: Inbox
+    filters:
+      and:
+        - formula.section_name == "1 Inbox"
+    order:
+      - file.name
+      - status
+      - priority
+      - project
+      - not_before
+    sort:
+      - property: file.ctime
+        direction: DESC
+    columnSize:
+      file.name: 518
+  - type: table
+    name: Review
+    filters:
+      and:
+        - formula.section_name == "2 Review"
+    order:
+      - file.name
+      - status
+      - priority
+      - next_action_by
+      - project
+      - not_before
+      - owner
+      - subscribers
+    sort:
+      - property: formula.effective_priority
+        direction: DESC
+      - property: file.ctime
+        direction: DESC
+    columnSize:
+      file.name: 384
+      note.priority: 81
+      note.project: 177
+      note.subscribers: 145
+  - type: table
+    name: Do
+    filters:
+      and:
+        - formula.section_name == "3 Do"
+    order:
+      - file.name
+      - status
+      - priority
+      - next_action_by
+      - project
+      - not_before
+      - owner
+      - subscribers
+    sort:
+      - property: status
+        direction: ASC
+      - property: formula.effective_priority
+        direction: DESC
+      - property: file.ctime
+        direction: DESC
+    columnSize:
+      file.name: 384
+      note.priority: 81
+      note.project: 177
+      note.subscribers: 145
+  - type: table
+    name: Post-Ideas
+    filters:
+      and:
+        - formula.section_name == "4 Post-Ideas"
+    order:
+      - file.name
+      - priority
+      - next_action_by
+      - project
+      - not_before
+      - owner
+      - subscribers
+      - status
+    sort:
+      - property: formula.effective_priority
+        direction: DESC
+      - property: file.ctime
+        direction: DESC
+    columnSize:
+      file.name: 384
+      note.priority: 81
+      note.project: 177
+      note.subscribers: 145
+  - type: table
+    name: Wait & Subscribed
+    filters:
+      and:
+        - formula.section_name == "5 Wait & Subscribed"
+    order:
+      - file.name
+      - priority
+      - next_action_by
+      - project
+      - not_before
+      - owner
+      - subscribers
+      - status
+    sort:
+      - property: formula.effective_priority
+        direction: DESC
+      - property: file.ctime
+        direction: DESC
+    columnSize:
+      file.name: 384
+      note.priority: 81
+      note.project: 177
+      note.subscribers: 145
+  - type: table
+    name: Later
+    filters:
+      and:
+        - formula.section_name == "6 Later"
+    order:
+      - file.name
+      - priority
+      - next_action_by
+      - project
+      - not_before
+      - owner
+      - subscribers
+      - status
+    sort:
+      - property: not_before
+        direction: ASC
+      - property: file.ctime
+        direction: DESC
+    columnSize:
+      file.name: 384
+      note.priority: 81
+      note.project: 177
+      note.subscribers: 145
+  - type: table
+    name: Notes
+    filters:
+      and:
+        - formula.section_name == "7 Notes"
+    order:
+      - file.name
+      - priority
+      - next_action_by
+      - project
+      - not_before
+      - owner
+      - subscribers
+      - status
+    sort:
+      - property: formula.effective_priority
+        direction: DESC
+      - property: file.ctime
+        direction: DESC
+    columnSize:
+      file.name: 384
+      note.priority: 81
+      note.project: 177
+      note.subscribers: 145
+  - type: table
+    name: Later Notes
+    filters:
+      and:
+        - formula.section_name == "8 Later Notes"
+    order:
+      - file.name
+      - priority
+      - next_action_by
+      - project
+      - not_before
+      - owner
+      - subscribers
+      - status
+    sort:
+      - property: not_before
+        direction: ASC
+      - property: file.ctime
+        direction: DESC
+    columnSize:
+      file.name: 384
+      note.priority: 81
+      note.project: 177
+      note.subscribers: 145
+  - type: table
+    name: Done & Archived
+    filters:
+      and:
+        - formula.section_name == "9 Done"
+    order:
+      - file.name
+      - priority
+      - next_action_by
+      - project
+      - not_before
+      - owner
+      - subscribers
+      - status
+    sort:
+      - property: formula.effective_priority
+        direction: DESC
+      - property: file.mtime
+        direction: DESC
+    columnSize:
+      file.name: 384
+      note.priority: 81
+      note.project: 177
+      note.subscribers: 145
+  - type: table
+    name: Archived Notes
+    filters:
+      and:
+        - formula.section_name == "10 Archived Notes"
+    order:
+      - file.name
+      - priority
+      - next_action_by
+      - project
+      - not_before
+      - owner
+      - subscribers
+      - status
+    sort:
+      - property: formula.effective_priority
+        direction: DESC
+      - property: file.mtime
+        direction: DESC
+    columnSize:
+      file.name: 384
+      note.priority: 81
+      note.project: 177
+      note.subscribers: 145
