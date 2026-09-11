@@ -15,7 +15,7 @@ Tasks in `tasks-and-notes/` delegated by setting frontmatter `next_action_by` to
 1. Set `next_action_by:` to `opus`, `fable`, `sonnet`, `haiku` (model choice), or `claude` (CLI default model). These are the model names current as of September 2026 — they drift with releases; when a new generation ships, update both the values you use and the filter list in [[claude.base]].
 2. Status must be empty, `active`, or `inbox`; `not_before` empty or ≤ today.
 3. Instructions go in the note body; the filename alone is often enough.
-4. Claude writes results into the note, adds a `## Done by claude (<model>, date)` summary, sets `status: review` + `next_action_by: me`. Review lands in me.base's Do view as usual.
+4. Claude writes results into the note, adds a `## Done by claude (<model>, date)` summary, sets `status: review` + `next_action_by: me`. The hand-back lands in me.base's Review section.
 
 ## Components
 
