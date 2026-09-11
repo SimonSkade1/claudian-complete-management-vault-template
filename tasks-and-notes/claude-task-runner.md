@@ -21,7 +21,7 @@ Tasks in `tasks-and-notes/` delegated by setting frontmatter `next_action_by` to
 
 1. [[claude.base]] — queue definition + dashboard (views: Do, Later). Single source of truth for what's eligible.
 2. `.claude/references/process-tasks.md` — the per-task protocol (a plain reference file rather than a skill, to keep the skill listing lean). Manual: tell Claude to read it and process the queue (or one task path).
-3. `.claude/scripts/query-base.py` — `--paths` flag gives machine-readable view output without needing the Obsidian app running.
+3. `.claude/scripts/query-base.py` — `--paths` flag prints a view's file paths without needing the Obsidian app running.
 4. `.claude/scripts/claude-task-helper.py` — `gate` (plan-usage check via OAuth usage API, fails closed), `get` (frontmatter read), `mark-failed` (hand-back on failed runs).
 5. `non-markdown/run-claude-tasks.sh` — the runner loop (flock, queue, gate, launch, failure guard).
 6. `non-markdown/headless-task-settings.json` — deny rules that still apply under `--dangerously-skip-permissions` (sudo, shutdown, mkfs, dd, crontab, reading credentials).

@@ -69,4 +69,4 @@ Two scheduled jobs ship: the nightly review pipeline (23:00, self-catching-up af
    2. `python3 .claude/scripts/query-base.py me.base` — base parsing works (lists the views).
    3. `bash .claude/scripts/session-start-location.sh` — emits valid JSON (the SessionStart hook; says which machine role this session runs under).
 18. Commit the setup: `git add -A && git commit -m "Vault setup"`.
-19. Tell the user where to go next: README's "A typical day" for the flow; `optional-extensions/` for add-ons (installed the same way: "set up the <name> extension"); delegation needs the task runner enabled (step 12/13). If they later mirror the vault to a server, `.claude/scripts/session-start-location.sh` has the hostname slots to fill.
+19. Tell the user where to go next: `SYSTEM.md` for how the system is organized; `optional-extensions/` for add-ons (installed the same way: "set up the <name> extension"); delegation needs the task runner enabled (step 12/13). If they later mirror the vault to a server, `.claude/scripts/session-start-location.sh` has the hostname slots to fill.
