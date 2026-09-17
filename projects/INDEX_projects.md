@@ -3,7 +3,7 @@ status: note
 ---
 # projects/ — index & conventions
 
-Home of the user's **goal** notes and the **knowledge** notes that serve them, plus misc **other** files. Dashboard: [[overview]] (embeds every top-level goal's `# Subtasks`; there is no base over this folder). New-note template: [[project]] (auto-applied by Templater, but only to files created **empty** — i.e. Obsidian UI click-create — in `projects/` and its subfolders). It inserts the `status`/`parent` frontmatter (for goal and knowledge files `parent:` is pre-filled with the previously open note, if that is a goal note) and appends empty `# Goal clarification` / `# Subtasks` / `# Notes` sections to **goal** files. Files created with any content (Claude/scripts/sync) are left completely untouched — Claude writes complete files itself, incl. frontmatter and sections.
+Home of the user's **goal** notes and the **knowledge** notes that serve them, plus misc **other** files. Dashboard: [[overview]] (embeds every top-level goal's `# Subtasks`; there is no base over this folder). New-note template: [[project]] (auto-applied by Templater, but only to files created **empty** — i.e. Obsidian UI click-create — in `projects/` and its subfolders). It inserts the `status`/`parent` frontmatter (for goal and knowledge files `parent:` is pre-filled with the previously open note, if that is a goal note) and appends empty `# Goal clarification` / `# Subtasks` / `# Notes` sections to **goal** files. Files created with any content (Claude/scripts/sync) get no template — Claude writes complete files itself, incl. frontmatter and sections.
 
 There is no top-level wikis folder — knowledge notes live inside the goal folder they serve.
 
