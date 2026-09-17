@@ -1,6 +1,6 @@
 <%*
 /* Folder template for projects/ — see INDEX_projects. Two entry paths:
-   1. Auto-trigger on file creation (by startup-folder-templates.md; RunMode.OverwriteFile=2): fills files created EMPTY (Obsidian UI
+   1. Auto-trigger on file creation (RunMode.OverwriteFile=2): fills files created EMPTY (Obsidian UI
       click-create); files created WITH content (Claude/scripts/sync) are echoed back untouched so
       complete files are never clobbered — Claude writes complete files itself.
    2. Manual insertion (Insert Template modal = RunMode.AppendActiveFile=1, or any non-auto run mode):

@@ -24,12 +24,15 @@ The nightly review pipeline snapshots the vault as git commits and refuses to ru
 Claude cannot install community plugins (Obsidian downloads them), but their settings are plain JSON files Claude can write. Plugin configs are read at plugin load, so a reload (step 10) applies them.
 
 7. Check installs: `.obsidian/community-plugins.json` should list `templater-obsidian` and `hidden-folders-access` (and Claudian, or this chat wouldn't exist). For any missing one, ask the user to install + enable it (Settings → Community plugins) and continue with the rest meanwhile.
-8. Templater — this is what auto-fills frontmatter on notes created empty in the two task folders. The work is done by the startup template `templates/startup-folder-templates.md` (it also holds the folder → template mapping), not by Templater's own "Trigger Templater on new file creation": that trigger also executes every Templater command found inside newly created **non-empty** notes (files written by Claude or scripts, files arriving through sync), so it must stay off — the startup template switches it off if it finds it on. Merge into `.obsidian/plugins/templater-obsidian/data.json` (create the file if absent; preserve any existing keys, and append to an existing `startup_templates` list instead of replacing it):
+8. Templater — this is what auto-fills frontmatter on notes created empty in the two task folders. Merge into `.obsidian/plugins/templater-obsidian/data.json` (create the file if absent; preserve any existing keys):
    ```json
    {
      "templates_folder": "templates",
-     "trigger_on_file_creation": false,
-     "startup_templates": ["templates/startup-folder-templates.md"]
+     "trigger_on_file_creation": true,
+     "folder_templates": [
+       { "folder": "tasks-and-notes", "template": "templates/task.md" },
+       { "folder": "projects", "template": "templates/project.md" }
+     ]
    }
    ```
 9. Hidden Folders Access — makes `.claude/` browsable inside Obsidian. Merge into `.obsidian/plugins/hidden-folders-access/data.json`:
@@ -40,7 +43,7 @@ Claude cannot install community plugins (Obsidian downloads them), but their set
    }
    ```
 10. Core **Bases** plugin (renders the three root `.base` dashboards): if `.obsidian/core-plugins.json` exists and contains `"bases": false`, set it to `true`. If the file is absent or lacks the key, change nothing — current Obsidian ships Bases enabled by default; just have the user confirm under Settings → Core plugins in step 11.
-11. Ask the user to reload Obsidian (command palette → "Reload app without saving") and confirm: `me.base` renders as a table, `.claude/` shows in the file explorer, and a note click-created in `tasks-and-notes/` gets the task frontmatter (delete it again).
+11. Ask the user to reload Obsidian (command palette → "Reload app without saving") and confirm: `me.base` renders as a table, and `.claude/` shows in the file explorer.
 
 ## Scheduling — laptop-local
 

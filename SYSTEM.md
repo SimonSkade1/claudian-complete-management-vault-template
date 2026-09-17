@@ -12,7 +12,7 @@ How this vault template is organized. The structure is plain Obsidian — markdo
 6. `external-projects/` — code repos beside the vault; each keeps its own git history, auto-ignored by the vault repo.
 7. `non-markdown/` — automation wrapper scripts, per-job settings profiles, systemd units, media.
 8. `archive/` — frozen reference material, not active work.
-9. `templates/` — Templater folder templates; they auto-fill frontmatter on notes click-created (= created empty) in `tasks-and-notes/` and `projects/`. A startup template (`startup-folder-templates`) applies them; Templater's own creation trigger stays off because it would execute template code found inside any new non-empty note.
+9. `templates/` — Templater folder templates; they auto-fill frontmatter on notes click-created in `tasks-and-notes/` and `projects/`.
 10. `optional-extensions/` — opt-in add-ons ([index](optional-extensions/INDEX_optional-extensions.md)).
 11. `.claude/` — CLAUDE.md, skills, scripts, workflows, settings.
 12. Vault root — the dashboards `me.base` (your queue), `claude.base` (delegated queue), `recent.base` (recently modified files), plus README / SETUP / this file.
